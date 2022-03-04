@@ -50,12 +50,14 @@ class About extends Component {
             )
         }
         if (this.props.partners.errMess) {
-            <ScrollView>
-                <Mission />
-                <Card title="Community Partners">
-                    <Text>{this.props.partners.errMess}</Text>
-                </Card>
-            </ScrollView>
+            return (
+                <ScrollView>
+                    <Mission />
+                    <Card title="Community Partners">
+                        <Text>{this.props.partners.errMess}</Text>
+                    </Card>
+                </ScrollView>
+            )
         }
         return (
             <ScrollView>
