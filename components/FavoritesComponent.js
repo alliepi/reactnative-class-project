@@ -28,6 +28,7 @@ class Favorites extends Component {
                     subtitle={item.description}
                     leftAvatar={{ source: { uri: baseUrl + item.image } }}
                     onPress={() => navigate('CampsiteInfo', { campsiteId: item.id })}
+                />
             )
         }
 
