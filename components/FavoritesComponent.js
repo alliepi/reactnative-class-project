@@ -31,8 +31,7 @@ class Favorites extends Component {
         const renderFavoriteItem = ({ item }) => {
             return (
                 <SwipeRow rightOpenValue={-100} style={styles.swipeRow}>
-                    {/* SwipeRow expects 2 View*/}
-                    <View style={styles.deleteView}> {/* 1st View is hidden view*/}
+                    <View style={styles.deleteView}>
                         <TouchableOpacity
                             style={styles.deleteTouchable}
                             onPress={() =>
@@ -59,7 +58,7 @@ class Favorites extends Component {
                             <Text style={styles.deleteText}>Delete</Text>
                         </TouchableOpacity>
                     </View>
-                    <View>{/* 2nd View shows default view*/}
+                    <View>
                         <ListItem
                             title={item.name}
                             subtitle={item.description}

@@ -27,7 +27,7 @@ export const ConfigureStore = () => {
         applyMiddleware(thunk, logger)
     );
 
-    const persisistor = persistStore(store);
+    const persistor = persistStore(store);
 
     return { persistor, store };
 }
