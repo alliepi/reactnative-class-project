@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Animatable from 'react-native-animatable';
-
+import * as Notifications from 'expo-notifications';
 class Reservation extends Component {
 
     constructor(props) {
@@ -32,6 +32,30 @@ class Reservation extends Component {
         })
     }
 
+    async presentLocalNotification(date) {
+        function sendNotification() {
+            Notifications.setNotificationHandler({
+                handleNotification: async () => ({
+                    shouldShowAlert: true
+                })
+            })
+            Notifications.scheduleNotificationAsync({
+                content: {
+                    title: 'YourCampsite Reservation Search',
+                    body: `Search for ${date} requested`
+                },
+                trigger: null
+            })
+        }
+        let permissions = await Notifications.getPermissionsAsync();
+        if (!permissions.granted) {
+            permissions = await Notifications.requestPermissionsAsync();
+        }
+        if (permissions.granted) {
+            sendNotification();
+        }
+    }
+
     createReservationAlert = () => {
         Alert.alert(
             'Begin Search?',
@@ -42,11 +66,17 @@ class Reservation extends Component {
                 {
                     text: 'Cancel',
                     style: 'cancel',
-                    onPress: () => console.log('Cancel Pressed')
+                    onPress: () => {
+                        console.log('Reservation Search Canceled');
+                        this.resetForm();
+                    }
                 },
                 {
                     text: 'OK',
-                    onPress: () => console.log('OK Pressed')
+                    onPress: () => {
+                        this.presentLocalNotification(this.state.date.toLocaleDateString('en-US'));
+                        this.resetForm;
+                    }
 
                 }
             ],
